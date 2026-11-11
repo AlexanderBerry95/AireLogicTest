@@ -1,0 +1,11 @@
+@AireLogicTest_HostAddress = http://localhost:5058
+
+GET {{AireLogicTest_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{AireLogicTest_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
