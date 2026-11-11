@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: c9d68fc5-f852-4db0-899c-116e9e4d115d
+
+localResources:
+  specs:
+    - ../obj/Debug/net11.0/EndpointInfo/AireLogicTest.json
