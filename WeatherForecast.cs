@@ -1,4 +1,4 @@
-namespace AireLogicTest
+namespace Panda
 {
     public class WeatherForecast
     {

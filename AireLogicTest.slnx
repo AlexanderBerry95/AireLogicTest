@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="AireLogicTest.csproj" />
+  <Project Path="../AireLogicTest.Business.Tests/Panda.Business.Tests.csproj" />
+  <Project Path="../AireLogicTest.Business/Panda.Business.csproj" />
+  <Project Path="Panda.csproj" />
 </Solution>

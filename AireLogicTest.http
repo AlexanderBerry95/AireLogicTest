@@ -1,11 +1,11 @@
-@AireLogicTest_HostAddress = http://localhost:5058
+@Panda_HostAddress = http://localhost:5058
 
-GET {{AireLogicTest_HostAddress}}/openapi/v1.json
+GET {{Panda_HostAddress}}/openapi/v1.json
 Accept: application/json
 
 ###
 
-GET {{AireLogicTest_HostAddress}}/weatherforecast/
+GET {{Panda_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AireLogicTest.Controllers
+namespace Panda.Controllers
 {
     [ApiController]
     [Route("[controller]")]
