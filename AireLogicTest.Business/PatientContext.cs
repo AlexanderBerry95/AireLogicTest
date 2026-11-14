@@ -2,7 +2,7 @@
 
 namespace Panda.Business
 {
-    public class PatientContext(DbContextOptions<PatientContext> options) : DbContext(options)
+    public class PatientContext(DbContextOptions<PatientContext> options) : DbContext(options), IPatientContext
     {
         public DbSet<Patient> Patients => Set<Patient>();
 
