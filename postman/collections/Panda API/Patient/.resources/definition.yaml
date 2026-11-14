@@ -1,0 +1,3 @@
+$kind: collection
+name: Patient
+description: Endpoints for managing patients in the Panda system.

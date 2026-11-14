@@ -1,0 +1,5 @@
+name: Panda Local
+values:
+  - key: base_url
+    value: 'https://localhost:44393'
+    type: default

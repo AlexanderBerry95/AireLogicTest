@@ -17,6 +17,7 @@ namespace Panda.Api.Controllers
         }
 
         [HttpPost]
+        [Route("Create")]
         public async Task<ActionResult<Patient>> CreatePatient([FromBody] CreatePatientRequest request)
         {
             try
