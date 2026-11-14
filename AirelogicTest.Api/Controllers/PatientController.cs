@@ -18,7 +18,7 @@ namespace Panda.Api.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<ActionResult<Patient>> CreatePatient([FromBody] CreatePatientRequest request)
+        public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientModel request)
         {
             try
             {
@@ -32,7 +32,31 @@ namespace Panda.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("An error occurred while creating the patient."); //TODO: Update this!
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PatientModel>> Get(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest("Invalid patient ID.");
+                }
+
+                var patient = await patientService.GetPatientById(id);
+                if (patient == null)
+                {
+                    return NotFound("No patient found with ID: " + id);
+                }
+
+                return Ok(patient);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Panda.Service.Models
 {
-    public class CreatePatientRequest
+    public class PatientModel
     {
         public required int NhsNumber { get; init; }
         public required string Name { get; init; }

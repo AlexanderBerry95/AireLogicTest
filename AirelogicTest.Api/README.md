@@ -11,12 +11,14 @@ Rules I followed:
 - No comments in code - code should explain itself.
 - Out of the box functionality: I'm handing this code to someone who has to try and run it locally - I should try to make their life easy.
 
+Considered but cut due to time:
+- Dedicated models project.
+- Actual unit tests (I started with them, but cut them as I ran out of time).
+- Better response types for bad code paths.
+
 Criticism of the code:
 - I used SQLite for the first time so did not set up migrations.
 - SQLite lacks a lot of types compared to other databases, so I've used strings a lot.
-
-Considerations:
-- Dedicated models project.
 
 AI Disclaimer:
 - I sometimes took the AI answer from google

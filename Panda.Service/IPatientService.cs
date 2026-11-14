@@ -5,6 +5,7 @@ namespace Panda.Service
 {
     public interface IPatientService
     {
-        Task<Patient> CreatePatient(CreatePatientRequest request);
+        Task<Patient> CreatePatient(PatientModel request);
+        Task<PatientModel?> GetPatientById(int id);
     }
 }
