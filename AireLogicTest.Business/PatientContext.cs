@@ -10,7 +10,11 @@ namespace Panda.Business
         {
             modelBuilder.Entity<Patient>()
                 .ToTable("Patients", "main")
-                .HasKey(patient => patient.NhsNumber);
+                .HasKey(patient => patient.Id);
+
+            modelBuilder.Entity<Patient>()
+                .Property(patient => patient.Id)
+                .ValueGeneratedOnAdd();
 
             base.OnModelCreating(modelBuilder);
         }

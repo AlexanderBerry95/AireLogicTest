@@ -2,5 +2,6 @@
   <Project Path="AirelogicTest.Api/Panda.Api.csproj" />
   <Project Path="AireLogicTest.Business.Tests/Panda.Business.Tests.csproj" />
   <Project Path="AireLogicTest.Business/Panda.Business.csproj" />
+  <Project Path="Panda.Service.Tests/Panda.Service.Tests.csproj" Id="5efe2110-1719-4d1a-90b6-f6c4715cb81c" />
   <Project Path="Panda.Service/Panda.Service.csproj" />
 </Solution>

@@ -1,9 +1,10 @@
 ﻿using Panda.Business;
+using Panda.Service.Models;
 
 namespace Panda.Service
 {
     public interface IPatientService
     {
-        void AddPatient(Patient patient);
+        Task<Patient> CreatePatient(CreatePatientRequest request);
     }
 }
