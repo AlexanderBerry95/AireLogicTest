@@ -13,6 +13,8 @@ Rules I followed:
 
 Assumptions I made about the requirements:
 - The front-end team will know which patient ID to use. (Maybe NHS Number is better as it's unique??)
+- For updating, the front-end team will send a full patient model, not just the fields they want to update. 
+- NHS Numbers cannot be updated.
 
 Considered but cut due to time:
 - Dedicated models project.

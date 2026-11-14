@@ -8,5 +8,6 @@ namespace Panda.Service
         Task<Patient> CreatePatient(PatientModel request);
         Task DeletePatient(int id);
         Task<PatientModel?> GetPatientModelById(int id);
+        Task UpdatePatient(PatientModel updateModel);
     }
 }

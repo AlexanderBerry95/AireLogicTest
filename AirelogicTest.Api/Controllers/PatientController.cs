@@ -22,11 +22,6 @@ namespace Panda.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return ValidationProblem(ModelState);
-                }
-
                 Patient createdPatient = await patientService.CreatePatient(request);
                 return Ok(createdPatient.Id);
             }
@@ -73,6 +68,20 @@ namespace Panda.Api.Controllers
 
                 await patientService.DeletePatient(id);
                 return Ok("Patient deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdatePatient([FromBody] PatientModel updateModel)
+        {
+            try
+            {
+                await patientService.UpdatePatient(updateModel);
+                return Ok("Patient updated successfully.");
             }
             catch (Exception ex)
             {

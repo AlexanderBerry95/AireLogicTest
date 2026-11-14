@@ -38,7 +38,7 @@ namespace Panda.Service
 
         public async Task<PatientModel?> GetPatientModelById(int id)
         {
-            Patient? patient = await this.GetPatientById(id);
+            Patient? patient = await this.GetById(id);
             if (patient == null)
             {
                 return null;
@@ -55,10 +55,36 @@ namespace Panda.Service
 
         public async Task DeletePatient(int id)
         {
-            Patient? patient = await GetPatientById(id) 
+            Patient? patient = await GetById(id) 
                 ?? throw new InvalidOperationException("No patient found with ID: " + id);
 
             patientContext.Patients.Remove(patient);
+            await patientContext.SaveChangesAsync();
+        }
+
+        public async Task UpdatePatient(PatientModel updateModel)
+        {
+            if (!CheckNhsNumberIsValid(updateModel.NhsNumber.ToString()))
+            {
+                throw new ArgumentException("Invalid NHS number format.");
+            }
+
+            if (!CheckPostCodeIsValid(updateModel.PostCode))
+            {
+                throw new ArgumentException("Invalid postcode format.");
+            }
+
+            Patient? patient = await GetByNhsNumber(updateModel.NhsNumber)
+                ?? throw new InvalidOperationException("No patient found with NHS number: " + updateModel.NhsNumber);
+
+            Patient updatedPatient = patient with
+            {
+                PostCode = updateModel.PostCode.Trim(),
+                Name = updateModel.Name.Trim(),
+                DateOfBirth = updateModel.DateOfBirth
+            };
+
+            patientContext.Patients.Update(updatedPatient);
             await patientContext.SaveChangesAsync();
         }
 
@@ -77,7 +103,15 @@ namespace Panda.Service
             return patient;
         }
 
-        private async Task<Patient?> GetPatientById(int id)
+        private async Task<Patient?> GetByNhsNumber(int nhsNum)
+        {
+            return await patientContext.Patients
+                .AsNoTracking()
+                .Where(p => p.NhsNumber == nhsNum)
+                .FirstOrDefaultAsync();
+        }
+
+        private async Task<Patient?> GetById(int id)
         {
             return await patientContext.Patients
                 .Where(p => p.Id == id)
