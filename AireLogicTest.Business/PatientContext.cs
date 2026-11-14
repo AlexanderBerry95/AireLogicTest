@@ -1,37 +1,17 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Panda.Business
 {
-    public class PatientContext : DbContext
+    public class PatientContext(DbContextOptions<PatientContext> options) : DbContext(options)
     {
-        public DbSet<Patient> Patients;
-
-        public PatientContext()
-        {
-            Database.EnsureCreated();
-            Patients = Set<Patient>();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(
-                "FileName=Panda", 
-                option => 
-                { 
-                    option.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-                }
-            );
-            base.OnConfiguring(optionsBuilder);
-        }
+        public DbSet<Patient> Patients => Set<Patient>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Patient>().ToTable("Patients", "main");
-            modelBuilder.Entity<Patient>(entity => {
-                entity.HasKey(e => e.NhsNumber);
-             });
+            modelBuilder.Entity<Patient>()
+                .ToTable("Patients", "main")
+                .HasKey(patient => patient.NhsNumber);
+
             base.OnModelCreating(modelBuilder);
         }
     }

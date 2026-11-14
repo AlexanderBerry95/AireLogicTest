@@ -1,6 +1,7 @@
-﻿using Microsoft.Data.Sqlite;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.CodeCoverage.Core.Reports.Coverage;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace Panda.Business.Tests
 {
@@ -8,24 +9,32 @@ namespace Panda.Business.Tests
     public class PatientContextTests
     {
         [TestMethod]
-        public void WhenPatientsAddedToDatabase_DatabaseIsNotEmpty()
+        public void WhenPatientsAddedToDatabase_PatientCountMatches()
         {
-            using var patientContext = new PatientContext();
-            CreateInitialDataset(patientContext);
+            using var connection = new SqliteConnection("Data Source=:memory:");
+            connection.Open();
 
-            Assert.AreNotEqual(0, patientContext.Patients.Count());
-        }
-
-        private static void CreateInitialDataset(PatientContext patientContext)
-        {
+            using var patientContext = CreateNewContext(connection);
             patientContext.Database.EnsureCreated();
+
             var patients = new List<Patient>
             {
-                new Patient(){ DateOfBirth = new DateOnly(1980, 1, 1), Name = "John Doe", PostCode = "SW1A 1AA", NhsNumber = 1234567890 },
-                new Patient(){ DateOfBirth = new DateOnly(1985, 5, 15), Name = "Jane Smith", PostCode = "SW1A 1AA", NhsNumber = 0987654321 }
+                new() { DateOfBirth = new DateOnly(1980, 1, 1), Name = "John Doe", PostCode = "SW1A 1AA", NhsNumber = 1234567890 },
+                new() { DateOfBirth = new DateOnly(1985, 5, 15), Name = "Jane Smith", PostCode = "SW1A 1AA", NhsNumber = 987654321 }
             };
+
             patientContext.Patients.AddRange(patients);
             patientContext.SaveChanges();
+            Assert.AreEqual(patients.Count, patientContext.Patients.Count());
+        }
+
+        private static PatientContext CreateNewContext(SqliteConnection connection)
+        {
+            var options = new DbContextOptionsBuilder<PatientContext>()
+                .UseSqlite(connection)
+                .Options;
+
+            return new PatientContext(options);
         }
     }
 }
