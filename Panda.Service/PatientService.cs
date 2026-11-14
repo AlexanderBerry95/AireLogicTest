@@ -36,18 +36,30 @@ namespace Panda.Service
             return await AddPatientAsync(patient);
         }
 
-        public Task<PatientModel?> GetPatientById(int id)
+        public async Task<PatientModel?> GetPatientModelById(int id)
         {
-            return patientContext.Patients
-                .Where(p => p.Id == id)
-                .Select(p => new PatientModel
-                {
-                    NhsNumber = p.NhsNumber,
-                    Name = p.Name,
-                    DateOfBirth = p.DateOfBirth,
-                    PostCode = p.PostCode
-                })
-                .FirstOrDefaultAsync();
+            Patient? patient = await this.GetPatientById(id);
+            if (patient == null)
+            {
+                return null;
+            }
+
+            return new PatientModel
+            {
+                NhsNumber = patient.NhsNumber,
+                Name = patient.Name,
+                DateOfBirth = patient.DateOfBirth,
+                PostCode = patient.PostCode
+            };
+        }
+
+        public async Task DeletePatient(int id)
+        {
+            Patient? patient = await GetPatientById(id) 
+                ?? throw new InvalidOperationException("No patient found with ID: " + id);
+
+            patientContext.Patients.Remove(patient);
+            await patientContext.SaveChangesAsync();
         }
 
         private async Task<Patient> AddPatientAsync(Patient patient)
@@ -63,6 +75,13 @@ namespace Panda.Service
             await patientContext.SaveChangesAsync();
 
             return patient;
+        }
+
+        private async Task<Patient?> GetPatientById(int id)
+        {
+            return await patientContext.Patients
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         private static bool CheckNhsNumberIsValid(string nhsNumber)

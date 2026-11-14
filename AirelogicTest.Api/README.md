@@ -2,14 +2,17 @@
 
 Testing:
 - Clone the repo and run - I've avoided external dependencies so it should run out of the box.
-- I would recommend testing via the swagger ui, just launch the app in debugger and everything will load perfectly.
+- I would recommend testing via the swagger ui, just launch the api in debugger and everything will load perfectly.
 - You could also use post-man to better emulate a real-life scenario. I'll leave my postman project in the repo.
 - You can reset the database by deleting the `panda.db` file, it will regenerate on the next run. It will add as empty.
 
 Rules I followed:
 - Vertical slice architecture
-- No comments in code - code should explain itself.
+- No comments explaining code - code should explain itself.
 - Out of the box functionality: I'm handing this code to someone who has to try and run it locally - I should try to make their life easy.
+
+Assumptions I made about the requirements:
+- The front-end team will know which patient ID to use. (Maybe NHS Number is better as it's unique??)
 
 Considered but cut due to time:
 - Dedicated models project.

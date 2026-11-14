@@ -46,13 +46,33 @@ namespace Panda.Api.Controllers
                     return BadRequest("Invalid patient ID.");
                 }
 
-                var patient = await patientService.GetPatientById(id);
+                var patient = await patientService.GetPatientModelById(id);
                 if (patient == null)
                 {
                     return NotFound("No patient found with ID: " + id);
                 }
 
                 return Ok(patient);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public async Task<ActionResult> DeletePatient(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest("Invalid patient ID.");
+                }
+
+                await patientService.DeletePatient(id);
+                return Ok("Patient deleted successfully.");
             }
             catch (Exception ex)
             {
