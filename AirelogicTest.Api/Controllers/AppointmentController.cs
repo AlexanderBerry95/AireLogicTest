@@ -38,7 +38,8 @@ namespace Panda.Api.Controllers
                 {
                     return BadRequest("Invalid appointment ID.");
                 }
-                var appointment = await appointmentService.GetAppointmentModelById(id);
+
+                AppointmentModel appointment = await appointmentService.GetAppointmentById(id);
                 if (appointment == null)
                 {
                     return NotFound("No appointment found with ID: " + id);
@@ -61,12 +62,24 @@ namespace Panda.Api.Controllers
                 {
                     return BadRequest("Invalid appointment ID.");
                 }
-                bool isDeleted = await appointmentService.DeleteAppointment(id);
-                if (!isDeleted)
-                {
-                    return NotFound("No appointment found with ID: " + id);
-                }
+
+                await appointmentService.DeleteAppointment(id);
                 return Ok("Appointment deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch]
+        [Route("Update")]
+        public async Task<ActionResult> UpdateAppointment([FromBody] AppointmentModel request)
+        {
+            try
+            {
+                await appointmentService.UpdateAppointment(request);
+                return Ok("Appointment updated successfully.");
             }
             catch (Exception ex)
             {

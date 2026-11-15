@@ -1,0 +1,5 @@
+$kind: http-request
+name: 'Delete Appointment'
+method: DELETE
+url: '{{base_url}}/api/Appointment/Delete/{{appointment_id}}'
+order: 3000

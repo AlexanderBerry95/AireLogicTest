@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'Create Appointment'
+method: POST
+url: '{{base_url}}/api/Appointment/Create'
+order: 1000
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "Scheduled",
+      "text": "Annual checkup",
+      "duration": "30 minutes",
+      "clinician": "Dr. Smith",
+      "department": "General Practice",
+      "postCode": "LS1 1BA",
+      "patientId": 1
+    }

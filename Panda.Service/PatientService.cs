@@ -7,11 +7,11 @@ namespace Panda.Service
 {
     public class PatientService : IPatientService
     {
-        private readonly IPandaContext patientContext;
+        private readonly IPandaContext pandaContext;
 
-        public PatientService(IPandaContext patientContext)
+        public PatientService(IPandaContext pandaContext)
         {
-            this.patientContext = patientContext;
+            this.pandaContext = pandaContext;
         }
 
         public async Task<int> CreatePatient(PatientModel request)
@@ -59,8 +59,8 @@ namespace Panda.Service
             Patient? patient = await GetById(id) 
                 ?? throw new InvalidOperationException("No patient found with ID: " + id);
 
-            patientContext.Patients.Remove(patient);
-            await patientContext.SaveChangesAsync();
+            pandaContext.Patients.Remove(patient);
+            await pandaContext.SaveChangesAsync();
         }
 
         public async Task UpdatePatient(PatientModel updateModel)
@@ -85,28 +85,28 @@ namespace Panda.Service
                 DateOfBirth = updateModel.DateOfBirth
             };
 
-            patientContext.Patients.Update(updatedPatient);
-            await patientContext.SaveChangesAsync();
+            pandaContext.Patients.Update(updatedPatient);
+            await pandaContext.SaveChangesAsync();
         }
 
         private async Task<int> AddPatientAsync(Patient patient)
         {
-            bool exists = await patientContext.Patients.AnyAsync(x => x.NhsNumber == patient.NhsNumber);
+            bool exists = await pandaContext.Patients.AnyAsync(x => x.NhsNumber == patient.NhsNumber);
 
             if (exists)
             {
                 throw new InvalidOperationException("A patient with the specified NHS number already exists.");          
             }
 
-            patientContext.Patients.Add(patient);
-            await patientContext.SaveChangesAsync();
+            pandaContext.Patients.Add(patient);
+            await pandaContext.SaveChangesAsync();
 
             return patient.Id;
         }
 
         private async Task<Patient?> GetByNhsNumber(int nhsNum)
         {
-            return await patientContext.Patients
+            return await pandaContext.Patients
                 .AsNoTracking()
                 .Where(p => p.NhsNumber == nhsNum)
                 .FirstOrDefaultAsync();
@@ -114,7 +114,7 @@ namespace Panda.Service
 
         private async Task<Patient?> GetById(int id)
         {
-            return await patientContext.Patients
+            return await pandaContext.Patients
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
         }

@@ -74,7 +74,7 @@ namespace Panda.Api.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPatch]
         public async Task<ActionResult> UpdatePatient([FromBody] PatientModel updateModel)
         {
             try

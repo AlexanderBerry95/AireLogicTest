@@ -1,0 +1,5 @@
+$kind: http-request
+name: 'Get Appointment'
+method: GET
+url: '{{base_url}}/api/Appointment/{{appointment_id}}'
+order: 2000

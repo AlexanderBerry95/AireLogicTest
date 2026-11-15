@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Panda.Business
 {
-    public class Appointment
+    public record Appointment
     {
         public int Id { get; init; }
         public required string Status { get; init; }
@@ -15,6 +15,5 @@ namespace Panda.Business
         public required string PostCode { get; init; }
         public int PatientId { get; init; }
         public Patient Patient { get; init; } = null!;
-
     }
 }

@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'Update Appointment'
+method: PATCH
+url: '{{base_url}}/api/Appointment/Update'
+order: 4000
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "status": "Completed",
+      "text": "Annual checkup",
+      "duration": "30 minutes",
+      "clinician": "Dr. Smith",
+      "department": "General Practice",
+      "postCode": "LS1 1BA",
+      "patientId": 1
+    }
