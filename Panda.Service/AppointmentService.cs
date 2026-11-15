@@ -106,7 +106,7 @@ namespace Panda.Service
                 PatientId = appointment.PatientId
             };
 
-            pandaContext.Appointments.Remove(appointment);
+            pandaContext.Appointments.Update(updatedAppointment);
             await pandaContext.SaveChangesAsync();
         }
     }

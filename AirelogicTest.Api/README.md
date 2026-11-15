@@ -18,9 +18,9 @@ Assumptions I made about the requirements:
 - NHS Numbers cannot be updated.
 
 Considered but cut due to time:
+- Use a middleware to handle errors and return appropriate status codes. 
 - Dedicated models project.
 - Actual unit tests (I started with them, but cut them as I ran out of time).
-- Better response types for bad code paths.
 - Status codes for Appointment Statuses.
 
 Criticism of the code:

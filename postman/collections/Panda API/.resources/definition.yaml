@@ -3,6 +3,8 @@ name: Panda API
 description: |-
   Collection for the Panda Patient Management API.
   Base URL is controlled by the {{base_url}} variable.
+settings:
+  strictSSL: false
 variables:
   - key: base_url
     value: 'https://localhost:44393'

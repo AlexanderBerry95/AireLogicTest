@@ -104,11 +104,11 @@ namespace Panda.Service
             return patient.Id;
         }
 
-        private async Task<Patient?> GetByNhsNumber(int nhsNum)
+        private async Task<Patient?> GetByNhsNumber(string nhsNumber)
         {
             return await pandaContext.Patients
                 .AsNoTracking()
-                .Where(p => p.NhsNumber == nhsNum)
+                .Where(p => p.NhsNumber == nhsNumber)
                 .FirstOrDefaultAsync();
         }
 

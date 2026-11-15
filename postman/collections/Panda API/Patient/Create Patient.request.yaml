@@ -5,11 +5,13 @@ url: '{{base_url}}/api/Patient/Create'
 order: 1000
 headers:
   Content-Type: application/json
+settings:
+  strictSSL: false
 body:
   type: json
   content: |-
     {
-      "nhsNumber": 1234567890,
+      "nhsNumber": "1234567890",
       "name": "John Doe",
       "dateOfBirth": "1990-01-15",
       "postCode": "LS1 1BA"
