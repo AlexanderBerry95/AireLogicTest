@@ -2,6 +2,7 @@
 
 Testing:
 - Clone the repo and run - I've avoided external dependencies so it should run out of the box.
+- The Panda.db file will be generated on the first run, and will be empty.
 - I would recommend testing via the swagger ui, just launch the api in debugger and everything will load perfectly.
 - You could also use post-man to better emulate a real-life scenario. I'll leave my postman project in the repo.
 - You can reset the database by deleting the `panda.db` file, it will regenerate on the next run. It will add as empty.

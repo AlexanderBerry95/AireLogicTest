@@ -4,7 +4,7 @@ using Panda.Service.Models;
 
 namespace Panda.Service
 {
-    internal class AppointmentService : IAppointmentService
+    public class AppointmentService : IAppointmentService
     {
         private readonly IPandaContext pandaContext;
 
@@ -62,6 +62,7 @@ namespace Panda.Service
         public async Task UpdateAppointment(AppointmentModel appointmentModel)
         {
             var appointment = await pandaContext.Appointments
+                .AsNoTracking()
                 .FirstOrDefaultAsync(item => item.Id == appointmentModel.Id) ?? throw new InvalidOperationException($"No appointment found with ID: {appointmentModel.Id}");
 
             if (appointment.Status == "Cancelled" && appointmentModel.Status != "Cancelled")

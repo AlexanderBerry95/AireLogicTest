@@ -20,6 +20,7 @@ builder.Services.AddScoped<IPandaContext>(services =>
     services.GetRequiredService<PandaContext>());
 
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
 var app = builder.Build();
 
