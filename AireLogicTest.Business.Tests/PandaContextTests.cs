@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Panda.Business.Tests
 {
     [TestClass]
-    public class PatientContextTests
+    public class PandaContextTests
     {
         [TestMethod]
         public void WhenPatientsAddedToDatabase_PatientCountMatches()
@@ -28,13 +28,13 @@ namespace Panda.Business.Tests
             Assert.AreEqual(patients.Count, patientContext.Patients.Count());
         }
 
-        private static PatientContext CreateNewContext(SqliteConnection connection)
+        private static PandaContext CreateNewContext(SqliteConnection connection)
         {
-            var options = new DbContextOptionsBuilder<PatientContext>()
+            var options = new DbContextOptionsBuilder<PandaContext>()
                 .UseSqlite(connection)
                 .Options;
 
-            return new PatientContext(options);
+            return new PandaContext(options);
         }
     }
 }

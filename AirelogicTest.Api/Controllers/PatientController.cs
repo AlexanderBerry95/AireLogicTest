@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Panda.Business;
-using Panda.Service;
+using Panda.Service.Interfaces;
 using Panda.Service.Models;
 
 namespace Panda.Api.Controllers
@@ -18,12 +17,12 @@ namespace Panda.Api.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientModel request)
+        public async Task<ActionResult<int>> CreatePatient([FromBody] PatientModel request)
         {
             try
             {
-                Patient createdPatient = await patientService.CreatePatient(request);
-                return Ok(createdPatient.Id);
+                int createdPatientId = await patientService.CreatePatient(request);
+                return Ok(createdPatientId);
             }
             catch (Exception ex)
             {

@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Panda.Business;
+using Panda.Service.Interfaces;
 using Panda.Service.Models;
 
 namespace Panda.Service
 {
     public class PatientService : IPatientService
     {
-        private readonly IPatientContext patientContext;
+        private readonly IPandaContext patientContext;
 
-        public PatientService(IPatientContext patientContext)
+        public PatientService(IPandaContext patientContext)
         {
             this.patientContext = patientContext;
         }
 
-        public async Task<Patient> CreatePatient(PatientModel request)
+        public async Task<int> CreatePatient(PatientModel request)
         {
             if(!CheckNhsNumberIsValid(request.NhsNumber.ToString()))
             {
@@ -88,7 +89,7 @@ namespace Panda.Service
             await patientContext.SaveChangesAsync();
         }
 
-        private async Task<Patient> AddPatientAsync(Patient patient)
+        private async Task<int> AddPatientAsync(Patient patient)
         {
             bool exists = await patientContext.Patients.AnyAsync(x => x.NhsNumber == patient.NhsNumber);
 
@@ -100,7 +101,7 @@ namespace Panda.Service
             patientContext.Patients.Add(patient);
             await patientContext.SaveChangesAsync();
 
-            return patient;
+            return patient.Id;
         }
 
         private async Task<Patient?> GetByNhsNumber(int nhsNum)

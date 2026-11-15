@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Panda.Business;
 using Panda.Service;
+using Panda.Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +13,11 @@ builder.Services.AddSwaggerGen();
 
 var dbPath = Path.Combine(builder.Environment.ContentRootPath, "Panda.db");
 
-builder.Services.AddDbContext<PatientContext>(options =>
+builder.Services.AddDbContext<PandaContext>(options =>
     options.UseSqlite($"Data Source={dbPath}"));
 
-builder.Services.AddScoped<IPatientContext>(services =>
-    services.GetRequiredService<PatientContext>());
+builder.Services.AddScoped<IPandaContext>(services =>
+    services.GetRequiredService<PandaContext>());
 
 builder.Services.AddScoped<IPatientService, PatientService>();
 
@@ -36,7 +37,7 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<PatientContext>();
+    var db = scope.ServiceProvider.GetRequiredService<PandaContext>();
     await db.Database.EnsureCreatedAsync();
 }
 
